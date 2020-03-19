@@ -121,6 +121,21 @@ public class EmployeeServlet extends HttpServlet {
     }
 
     private void showViewDetailForm(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Employee employee = this.employeeManage.findById(id);
+        RequestDispatcher dispatcher;
+        if(employee == null){
+            dispatcher = request.getRequestDispatcher("error-404.jsp");
+        } else {
+            request.setAttribute("employee",employee);
+            dispatcher = request.getRequestDispatcher("employee/view.jsp");
+        } try {
+            dispatcher.forward(request,response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void showDeleteForm(HttpServletRequest request, HttpServletResponse response) {

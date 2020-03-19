@@ -1,24 +1,17 @@
 package manage;
 
 
+import dataController.EmployeeData;
+import dataController.Data;
 import model.Employee;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class EmployeeManageImpl implements EmployeeManage {
     private static Map<Integer, Employee> employeeHashmap;
-
+    private static Data employeeData = new EmployeeData("D:\\case_study\\data\\employee_data.txt");
     static {
-        employeeHashmap = new HashMap<>();
-        employeeHashmap.put(1, new Employee(1, "John", "john@codegym.vn", "Hanoi","1000"));
-        employeeHashmap.put(2, new Employee(2, "Bill", "bill@codegym.vn", "Danang","2000"));
-        employeeHashmap.put(3, new Employee(3, "Alex", "alex@codegym.vn", "Saigon","3000"));
-        employeeHashmap.put(4, new Employee(4, "Adam", "adam@codegym.vn", "Beijin","4000"));
-        employeeHashmap.put(5, new Employee(5, "Sophia", "sophia@codegym.vn", "Miami","1000"));
-        employeeHashmap.put(6, new Employee(6, "Rose", "rose@codegym.vn", "Newyork","10000"));
+        employeeHashmap = employeeData.read();
     }
 
     @Override
@@ -29,6 +22,7 @@ public class EmployeeManageImpl implements EmployeeManage {
     @Override
     public void save(Employee employee) {
         employeeHashmap.put(employee.getId(), employee);
+        employeeData.write(employeeHashmap);
     }
 
     @Override
@@ -39,10 +33,12 @@ public class EmployeeManageImpl implements EmployeeManage {
     @Override
     public void update(int id, Employee customer) {
         employeeHashmap.put(id, customer);
+        employeeData.write(employeeHashmap);
     }
 
     @Override
     public void remove(int id) {
         employeeHashmap.remove(id);
+        employeeData.write(employeeHashmap);
     }
 }

@@ -57,4 +57,9 @@ public class Employee {
     public void setSalary(String salary) {
         this.salary = salary;
     }
+
+    @Override
+    public String toString() {
+        return id + "~~" + name + "~~" + email + "~~" + address + "~~" + salary;
+    }
 }
