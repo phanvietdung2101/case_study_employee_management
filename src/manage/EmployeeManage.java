@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface EmployeeManage {
     List<Employee> findAll();
+    List<Employee> findByDepartment(String department);
     void save(Employee employee);
     Employee findById(int id);
     void update(int id, Employee employee);

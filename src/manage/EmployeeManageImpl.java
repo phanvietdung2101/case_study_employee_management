@@ -20,6 +20,18 @@ public class EmployeeManageImpl implements EmployeeManage {
     }
 
     @Override
+    public List<Employee> findByDepartment(String department) {
+        ArrayList<Employee> employeeList = new ArrayList<>();
+        for (Map.Entry<Integer, Employee> entry : employeeHashmap.entrySet()) {
+            Employee employee = entry.getValue();
+            if(employee.getDepartment().equals(department)){
+                employeeList.add(employee);
+            }
+        }
+        return employeeList;
+    }
+
+    @Override
     public void save(Employee employee) {
         employeeHashmap.put(employee.getId(), employee);
         employeeData.write(employeeHashmap);

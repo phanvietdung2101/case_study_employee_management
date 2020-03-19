@@ -51,6 +51,18 @@
                 <td><input type="text" name="salary" id="salary"></td>
             </tr>
             <tr>
+                <td>Department: </td>
+                <td>
+                    <select id="department" name="department">
+                        <option>Marketing</option>
+                        <option>Production</option>
+                        <option>Research and Development</option>
+                        <option>Human Resource Management</option>
+                        <option>Accounting and Finance</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
                 <td></td>
                 <td><input type="submit" value="Add employee"></td>
             </tr>

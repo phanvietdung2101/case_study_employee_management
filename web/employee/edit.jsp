@@ -38,6 +38,10 @@
                 <td><input type="text" name="salary" id="salary" value="${requestScope["employee"].getSalary()}"></td>
             </tr>
             <tr>
+                <td>Department: </td>
+                <td><input type="text" name="department" id="department" value="${requestScope["employee"].getDepartment()}"></td>
+            </tr>
+            <tr>
                 <td></td>
                 <td><input type="submit" value="Update employee"></td>
             </tr>

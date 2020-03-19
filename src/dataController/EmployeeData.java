@@ -20,7 +20,8 @@ public class EmployeeData implements Data {
     public Map<Integer, Employee> read() {
         Map<Integer,Employee> employeeMap = new HashMap<>();
         try {
-            BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("D:\\case_study\\data\\employee_data.txt"), "UTF-8"));
+            BufferedReader in = new BufferedReader(new InputStreamReader(
+                    new FileInputStream(employeeData), "UTF-8"));
             String line = "";
             Employee employee;
             while((line = in.readLine()) != null){
@@ -30,7 +31,8 @@ public class EmployeeData implements Data {
                         elementArr[1],
                         elementArr[2],
                         elementArr[3],
-                        elementArr[4]);
+                        elementArr[4],
+                        elementArr[5]);
                 employeeMap.put(employee.getId(),employee);
             }
             in.close();
@@ -46,7 +48,8 @@ public class EmployeeData implements Data {
     public void write(Map<Integer, Employee> employeeMap) {
         try {
             Employee employee;
-            BufferedWriter out = new BufferedWriter(new FileWriter(this.employeeData));
+            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(employeeData),"UTF-8"));
             for (Map.Entry<Integer, Employee> entry : employeeMap.entrySet()) {
                 employee = entry.getValue();
                 out.write(employee.toString());

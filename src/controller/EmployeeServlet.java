@@ -1,5 +1,6 @@
 package controller;
 
+import jdk.jfr.Category;
 import manage.EmployeeManage;
 import manage.EmployeeManageImpl;
 import model.Employee;
@@ -107,7 +108,13 @@ public class EmployeeServlet extends HttpServlet {
     }
 
     private void listEmployee(HttpServletRequest request, HttpServletResponse response) {
-        List<Employee> employeeList = this.employeeManage.findAll();
+        String categoryList = request.getParameter("listCategory");
+        List<Employee> employeeList;
+        if(categoryList == null) {
+            employeeList = this.employeeManage.findAll();
+        } else {
+            employeeList = this.employeeManage.findByDepartment(categoryList);
+        }
         request.setAttribute("employeeList",employeeList);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("employee/list.jsp");
@@ -192,9 +199,10 @@ public class EmployeeServlet extends HttpServlet {
         String email = request.getParameter("email");
         String address = request.getParameter("address");
         String salary = request.getParameter("salary");
+        String department = request.getParameter("department");
         int id = Integer.parseInt(request.getParameter("id"));
 
-        Employee employee = new Employee(id,name,email,address,salary);
+        Employee employee = new Employee(id,name,email,address,salary,department);
         this.employeeManage.save(employee);
         RequestDispatcher dispatcher = request.getRequestDispatcher("employee/add.jsp");
         request.setAttribute("message","New employee was added");
