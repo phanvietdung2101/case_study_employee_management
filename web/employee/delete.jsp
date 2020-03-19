@@ -26,6 +26,10 @@
                 <td>${requestScope["employee"].getAddress()}</td>
             </tr>
             <tr>
+                <td>Salary: </td>
+                <td>${requestScope["employee"].getSalary()}</td>
+            </tr>
+            <tr>
                 <td><input type="submit" value="Delete employee"></td>
                 <td><a href="/employeeList">Back to employee list</a></td>
             </tr>

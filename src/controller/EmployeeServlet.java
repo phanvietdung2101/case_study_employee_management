@@ -29,8 +29,33 @@ public class EmployeeServlet extends HttpServlet {
                 editEmployee(request,response);
                 break;
             case "delete":
+                deleteEmployee(request,response);
                 break;
             default:
+                break;
+        }
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
+        if(action == null){
+            action = "";
+        }
+        switch (action){
+            case "add":
+                showAddForm(request,response);
+                break;
+            case "edit":
+                showEditForm(request,response);
+                break;
+            case "delete":
+                showDeleteForm(request,response);
+                break;
+            case "view":
+                showViewDetailForm(request,response);
+                break;
+            default:
+                listEmployee(request,response);
                 break;
         }
     }
@@ -65,27 +90,19 @@ public class EmployeeServlet extends HttpServlet {
         }
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getParameter("action");
-        if(action == null){
-            action = "";
-        }
-        switch (action){
-            case "add":
-                showAddForm(request,response);
-                break;
-            case "edit":
-                showEditForm(request,response);
-                break;
-            case "delete":
-                showDeleteForm(request,response);
-                break;
-            case "view":
-                showViewDetailForm(request,response);
-                break;
-            default:
-                listEmployee(request,response);
-                break;
+    private void deleteEmployee(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Employee employee = this.employeeManage.findById(id);
+        RequestDispatcher dispatcher;
+        if(employee == null){
+            dispatcher = request.getRequestDispatcher("error-404.jsp");
+        } else {
+            this.employeeManage.remove(id);
+            try {
+                response.sendRedirect("/employeeList");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -107,6 +124,22 @@ public class EmployeeServlet extends HttpServlet {
     }
 
     private void showDeleteForm(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Employee employee = this.employeeManage.findById(id);
+        RequestDispatcher dispatcher;
+        if(employee == null){
+            dispatcher = request.getRequestDispatcher("error-404.jsp");
+        } else {
+            request.setAttribute("employee",employee);
+            dispatcher = request.getRequestDispatcher("employee/delete.jsp");
+        }
+        try {
+            dispatcher.forward(request,response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) {
