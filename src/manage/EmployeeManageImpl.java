@@ -13,12 +13,12 @@ public class EmployeeManageImpl implements EmployeeManage {
 
     static {
         employeeHashmap = new HashMap<>();
-        employeeHashmap.put(1, new Employee(1, "John", "john@codegym.vn", "Hanoi",1000));
-        employeeHashmap.put(2, new Employee(2, "Bill", "bill@codegym.vn", "Danang",2000));
-        employeeHashmap.put(3, new Employee(3, "Alex", "alex@codegym.vn", "Saigon",3000));
-        employeeHashmap.put(4, new Employee(4, "Adam", "adam@codegym.vn", "Beijin",4000));
-        employeeHashmap.put(5, new Employee(5, "Sophia", "sophia@codegym.vn", "Miami",1000));
-        employeeHashmap.put(6, new Employee(6, "Rose", "rose@codegym.vn", "Newyork",10000));
+        employeeHashmap.put(1, new Employee(1, "John", "john@codegym.vn", "Hanoi","1000"));
+        employeeHashmap.put(2, new Employee(2, "Bill", "bill@codegym.vn", "Danang","2000"));
+        employeeHashmap.put(3, new Employee(3, "Alex", "alex@codegym.vn", "Saigon","3000"));
+        employeeHashmap.put(4, new Employee(4, "Adam", "adam@codegym.vn", "Beijin","4000"));
+        employeeHashmap.put(5, new Employee(5, "Sophia", "sophia@codegym.vn", "Miami","1000"));
+        employeeHashmap.put(6, new Employee(6, "Rose", "rose@codegym.vn", "Newyork","10000"));
     }
 
     @Override

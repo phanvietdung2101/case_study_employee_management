@@ -6,8 +6,9 @@
 </head>
 <body>
 <h1>Employee list</h1>
+
 <p>
-    <a href="/employeeList?action=create">Add new employee</a>
+    <a href="/employeeList?action=add">Add new employee</a>
 </p>
 <table border="1">
     <tr>
@@ -18,16 +19,16 @@
         <td>Edit</td>
         <td>Delete</td>
     </tr>
-    <c:forEach items='${requestScope["employeeList"]}' var="employee">
-        <tr>
-            <td><a href="/employeeList?action=view&id=${employee.getId()}">${employee.getName()}</a></td>
-            <td>${employee.getEmail()}</td>
-            <td>${employee.getAddress()}</td>
-            <td>${employee.getEmail()}</td>
-            <td><a href="/employeeList?action=edit&id=${employee.getId()}">edit</a></td>
-            <td><a href="/employeeList?action=delete&id=${employee.getId()}">delete</a></td>
-        </tr>
-    </c:forEach>
+        <c:forEach items='${requestScope["employeeList"]}' var="employee">
+            <tr>
+                <td><a href="/employeeList?action=view&id=${employee.getId()}">${employee.getName()}</a></td>
+                <td>${employee.getEmail()}</td>
+                <td>${employee.getAddress()}</td>
+                <td>${employee.getSalary()}</td>
+                <td><a href="/employeeList?action=edit&id=${employee.getId()}">edit</a></td>
+                <td><a href="/employeeList?action=delete&id=${employee.getId()}">delete</a></td>
+            </tr>
+        </c:forEach>
 </table>
 </body>
 </html>

@@ -17,7 +17,21 @@ import java.util.List;
 public class EmployeeServlet extends HttpServlet {
     EmployeeManage employeeManage = new EmployeeManageImpl();
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        String action = request.getParameter("action");
+        if(action == null){
+            action = "";
+        }
+        switch (action){
+            case "add":
+                addEmployee(request,response);
+                break;
+            case "edit":
+                break;
+            case "delete":
+                break;
+            default:
+                break;
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -68,5 +82,33 @@ public class EmployeeServlet extends HttpServlet {
     }
 
     private void showAddForm(HttpServletRequest request, HttpServletResponse response) {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("employee/add.jsp");
+        try{
+            dispatcher.forward(request,response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void addEmployee(HttpServletRequest request,HttpServletResponse response){
+        String name = request.getParameter("name");
+        String email = request.getParameter("email");
+        String address = request.getParameter("address");
+        String salary = request.getParameter("salary");
+        int id = Integer.parseInt(request.getParameter("id"));
+
+        Employee employee = new Employee(id,name,email,address,salary);
+        this.employeeManage.save(employee);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("employee/add.jsp");
+        request.setAttribute("message","New employee was added");
+        try {
+            dispatcher.forward(request,response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
