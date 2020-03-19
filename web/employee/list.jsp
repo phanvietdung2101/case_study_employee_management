@@ -5,7 +5,7 @@
     <title>Employee List</title>
 </head>
 <body>
-<h1><a href="/employeeList">Employee list</a>></h1>
+<h1><a href="/employeeList">Employee list</a></h1>
 
 <p>
     <a href="/employeeList?action=add">Add new employee</a>
