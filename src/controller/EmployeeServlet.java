@@ -26,11 +26,42 @@ public class EmployeeServlet extends HttpServlet {
                 addEmployee(request,response);
                 break;
             case "edit":
+                editEmployee(request,response);
                 break;
             case "delete":
                 break;
             default:
                 break;
+        }
+    }
+
+    private void editEmployee(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String name = request.getParameter("name");
+        String email = request.getParameter("email");
+        String address = request.getParameter("address");
+        String salary = request.getParameter("salary");
+
+        Employee employee = this.employeeManage.findById(id);
+        RequestDispatcher dispatcher;
+        if(employee == null){
+            dispatcher = request.getRequestDispatcher("error-404.jsp");
+        } else {
+            employee.setName(name);
+            employee.setEmail(email);
+            employee.setAddress(address);
+            employee.setSalary(salary);
+            this.employeeManage.update(id,employee);
+            request.setAttribute("employee",employee);
+            request.setAttribute("message","Employee information was updated");
+            dispatcher = request.getRequestDispatcher("employee/edit.jsp");
+        }
+        try {
+            dispatcher.forward(request,response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -79,6 +110,22 @@ public class EmployeeServlet extends HttpServlet {
     }
 
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Employee employee = this.employeeManage.findById(id);
+        RequestDispatcher dispatcher;
+        if(employee == null){
+            dispatcher = request.getRequestDispatcher("error-404.jsp");
+        } else {
+            request.setAttribute("employee",employee);
+            dispatcher = request.getRequestDispatcher("employee/edit.jsp");
+        }
+        try {
+            dispatcher.forward(request,response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void showAddForm(HttpServletRequest request, HttpServletResponse response) {
