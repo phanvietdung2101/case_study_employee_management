@@ -20,7 +20,7 @@ public class EmployeeData implements Data {
     public Map<Integer, Employee> read() {
         Map<Integer,Employee> employeeMap = new HashMap<>();
         try {
-            BufferedReader in = new BufferedReader(new FileReader(this.employeeData));
+            BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("D:\\case_study\\data\\employee_data.txt"), "UTF-8"));
             String line = "";
             Employee employee;
             while((line = in.readLine()) != null){
