@@ -1,8 +1,7 @@
 package controller;
 
-import jdk.jfr.Category;
-import manage.EmployeeManage;
-import manage.EmployeeManageImpl;
+import manage.EmployeeDAO;
+import manage.EmployeeManager;
 import model.Employee;
 
 import javax.servlet.RequestDispatcher;
@@ -12,11 +11,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @WebServlet(name = "EmployeeServlet",urlPatterns = "/employeeList")
 public class EmployeeServlet extends HttpServlet {
-    EmployeeManage employeeManage = new EmployeeManageImpl();
+    EmployeeDAO employeeManage = new EmployeeManager();
+    private List<Employee> employeeList;
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         if(action == null){
@@ -67,6 +70,7 @@ public class EmployeeServlet extends HttpServlet {
         String email = request.getParameter("email");
         String address = request.getParameter("address");
         String salary = request.getParameter("salary");
+        String department = request.getParameter("department");
 
         Employee employee = this.employeeManage.findById(id);
         RequestDispatcher dispatcher;
@@ -77,6 +81,7 @@ public class EmployeeServlet extends HttpServlet {
             employee.setEmail(email);
             employee.setAddress(address);
             employee.setSalary(salary);
+            employee.setDepartment(department);
             this.employeeManage.update(id,employee);
             request.setAttribute("employee",employee);
             request.setAttribute("message","Employee information was updated");
@@ -109,13 +114,34 @@ public class EmployeeServlet extends HttpServlet {
 
     private void listEmployee(HttpServletRequest request, HttpServletResponse response) {
         String categoryList = request.getParameter("listCategory");
-        List<Employee> employeeList;
-        if(categoryList == null) {
+        if(categoryList == null || categoryList == "") {
             employeeList = this.employeeManage.findAll();
         } else {
             employeeList = this.employeeManage.findByDepartment(categoryList);
         }
-        request.setAttribute("employeeList",employeeList);
+        String sortType = request.getParameter("sort");
+        Comparator<Employee> compareByName = (Employee o1, Employee o2) -> o1.getName().compareToIgnoreCase(o2.getName());
+        Comparator<Employee> compareBySalary = (Employee o1, Employee o2) -> o1.getSalary().compareToIgnoreCase(o2.getSalary());
+        if(sortType != null) {
+            switch (sortType) {
+                case "nameAscending":
+                    Collections.sort(employeeList, compareByName);
+                    break;
+                case "nameDescending":
+                    Collections.sort(employeeList, compareByName.reversed());
+                    break;
+                case "salaryAscending":
+                    Collections.sort(employeeList, compareBySalary);
+                    break;
+                case "salaryDescending":
+                    Collections.sort(employeeList, compareBySalary.reversed());
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        request.setAttribute("employeeList", employeeList);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("employee/list.jsp");
         try{

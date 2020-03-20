@@ -1,4 +1,6 @@
-1~~phan dũng~~phandung@gmail.com~~302 NY~~1234~~Production
-2~~2~~2~~2~~2~~Marketing
-3~~3~~3~~3~~3~~Production
-4~~4~~4~~4~~4~~Accounting and Finance
+1~~phan dũng~~phandung@gmail.com~~Hà Nội~~1234~~Production
+2~~Ng Qu Anh~~nqa2@g.com~~Ha Noi~~2000~~Marketing
+3~~Rick Sanchez~~ricksanchez@gmail.com~~earth-d-c137~~1235~~Research and Development
+4~~Morty Smith~~mortysmith@gmail.com~~earth-d-c137~~111~~Research and Development
+5~~K Anh~~ka@mail~~Hồ Chí Minh~~2020~~Human Resource Management
+6~~Name~~name@out~~ÄÃ  Náºµng~~2121~~Marketing

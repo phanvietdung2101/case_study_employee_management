@@ -7,7 +7,7 @@ import model.Employee;
 
 import java.util.*;
 
-public class EmployeeManageImpl implements EmployeeManage {
+public class EmployeeManager implements EmployeeDAO {
     private static Map<Integer, Employee> employeeHashmap;
     private static Data employeeData = new EmployeeData("D:\\case_study\\data\\employee_data.txt");
     static {

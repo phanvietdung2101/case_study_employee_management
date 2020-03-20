@@ -4,7 +4,7 @@ import model.Employee;
 
 import java.util.List;
 
-public interface EmployeeManage {
+public interface EmployeeDAO {
     List<Employee> findAll();
     List<Employee> findByDepartment(String department);
     void save(Employee employee);
